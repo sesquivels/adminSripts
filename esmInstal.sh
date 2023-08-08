@@ -1,5 +1,7 @@
 #!/bin/bash
 
+OS=$(cat /etc/*release | grep ID |head -n 1| awk -F '=' ' {print $2}' |sed 's/"//g')
+
 function state() {
     echo -ne "
 On which sstate of installation are you?
@@ -36,12 +38,25 @@ function preInstall() {
     #This script is to speedup esm prerequisites installation
     #works with Centos/RHEL 7.x and 8.x
 
+    echo -ne "Please indicate your ssh user, example jsmith:  "
+    read -r userSSH
+
+    echo -ne "Which will be the name of your host? please provide a name:  "
+    read -r hostNName
+
     echo -ne "Which is your OS version 7.x or 8.x?"
     read -r sub
 
+    hostnamectl set-hostname $hostNName
+    
     case $sub in
     7)
-        yum install -y unzip fontconfig dejavu-sans-fonts
+        if [ "$OS" == "centos" ]; then
+            yum install -y unzip fontconfig dejavu-sans-fonts
+        else
+            subscription-manager register
+            subscription-manager attach --auto
+        fi
         ;;
     8)
         export {http,https,ftp}_proxy="http://web-proxy.houston.softwaregrp.net:8080"
@@ -58,7 +73,7 @@ function preInstall() {
         ;;
     esac
 
-       #creating installers directory
+    #creating installers directory
     cd /root
     mkdir esmInstall
     cd esmInstall
@@ -107,7 +122,7 @@ function postReboot() {
 #=============================
 #este llama a todos
 
-echo -ne "Please indicate your ssh user, example jsmith:  "
-read -r userSSH
+
+
 state
 
