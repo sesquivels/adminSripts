@@ -54,18 +54,25 @@ function preInstall() {
         if [ "$OS" == "centos" ]; then
             yum install -y unzip fontconfig dejavu-sans-fonts
         else
-            subscription-manager register
+            subscription-manager register --user serguei.esquivel@microfocus.com --password P8lMz7eKrKf74aS1HAhGXWXU9h30
             subscription-manager attach --auto
+            yum install -y unzip fontconfig dejavu-sans-fonts
         fi
         ;;
     8)
-        export {http,https,ftp}_proxy="http://web-proxy.houston.softwaregrp.net:8080"
-        subscription-manager register
-        subscription-manager attach --auto
+        if [ "$OS" == "centos" ]; then
+            dnf install -y zip unzip libaio rng-tools ncurses-compat-libs libnsl
+            systemctl start rngd.service
+            systemctl enable rngd.service
+        else
+            export {http,https,ftp}_proxy="http://web-proxy.houston.softwaregrp.net:8080"
+            subscription-manager register --user serguei.esquivel@microfocus.com --password P8lMz7eKrKf74aS1HAhGXWXU9h30
+            subscription-manager attach --auto
 
-        dnf install -y zip unzip libaio rng-tools ncurses-compat-libs libnsl
-        systemctl start rngd.service
-        systemctl enable rngd.service
+            dnf install -y zip unzip libaio rng-tools ncurses-compat-libs libnsl
+            systemctl start rngd.service
+            systemctl enable rngd.service
+        fi
         ;;
     *)
         echo "Wrong option."
