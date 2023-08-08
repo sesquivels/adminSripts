@@ -1,7 +1,39 @@
 #!/bin/bash
-function centosESM() {
 
-    #This script is to speedup logger prerequisites installation
+function state() {
+    echo -ne "
+On which sstate of installation are you?
+1) Initial pre reboot stage
+2) Post reboot Installation
+3) First run
+0) Exit
+Choose an option:  "
+    read -r ans
+    case $ans in
+    1)
+        preInstall
+        ;;
+    2)
+        postReboot
+        ;;
+    3)
+        firstRun
+        ;;
+    0)
+        echo "Bye bye."
+        exit 0
+        ;;
+    *)
+        echo "Wrong option."
+        exit 1
+        ;;
+    esac
+}
+
+
+function preInstall() {
+
+    #This script is to speedup esm prerequisites installation
     #works with Centos/RHEL 7.x and 8.x
 
     echo -ne "Which is your OS version 7.x or 8.x?"
@@ -32,8 +64,8 @@ function centosESM() {
     cd esmInstall
 
     echo -ne "Wich version of ESM?
-    #1) Logger 7.5
-    #2) Logger 7.6"
+    #1) ESM 7.5
+    #2) ESM 7.6"
 
     #por ultimo le damos privilegios de ejecucion y corremos el instalador
     read -r logg
@@ -54,6 +86,19 @@ function centosESM() {
         exit 1
         ;;
     esac
+}
+
+function postReboot() {
+
+    cd  ~/esmInstall
+    chown arcsight:arcsight ArcSightESMSuite.bin
+    chown arcsight:arcsight esmInstall.sh
+    cp ~/esmInstall.sh
+    mv ArcSightESMSuite.bin /home/arcsight/
+    su arcsight
+    cd ~
+    chmod +x ArcSightESMSuite.bin
+    ./ArcSightESMSuite.bin -i console
 
 }
 
@@ -62,7 +107,7 @@ function centosESM() {
 #=============================
 #este llama a todos
 
-echo -ne "Please indicate your ssh user, example jsmith"
+echo -ne "Please indicate your ssh user, example jsmith:  "
 read -r userSSH
-centosESM
+state
 
