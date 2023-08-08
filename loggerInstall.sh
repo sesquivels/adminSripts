@@ -29,6 +29,9 @@ function centosLogger() {
         exit 1
         ;;
     esac
+
+    hostnamectl set-hostname $hostNName
+    
     #adding arcsight user and group
     groupadd arcsight
     groupmod -g 750 arcsight
@@ -93,6 +96,9 @@ function centosLogger() {
 
 echo -ne "Please indicate your ssh user, example jsmith:  "
 read -r userSSH
+
+echo -ne "Which will be the name of your host? please provide a name:  "
+read -r hostNName
 
 centosLogger
 
