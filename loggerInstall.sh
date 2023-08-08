@@ -17,7 +17,7 @@ function centosLogger() {
         ;;
     8)
         export {http,https,ftp}_proxy="http://web-proxy.houston.softwaregrp.net:8080"
-        subscription-manager register --user serguei.esquivel@microfocus.com --password mLBPS&SmidYHHT7ao?9EQp
+        subscription-manager register --user serguei.esquivel@microfocus.com --password P8lMz7eKrKf74aS1HAhGXWXU9h30
         subscription-manager attach --auto
 
         dnf install -y unzip fontconfig dejavu-sans-fonts libnsl compat-openssl10 ncurses-compat-libs rng-tools
