@@ -1,6 +1,4 @@
 #!/bin/bash
-
-
 #=============================
 #-----------Variables---------
 #=============================
@@ -91,7 +89,6 @@ function centosLogger() {
 
 }
 
-
 #=============================
 #---------Main Program--------
 #=============================
@@ -100,5 +97,3 @@ function centosLogger() {
 echo -ne "Please indicate your ssh user, example jsmith"
 read -r userSSH
 centosLogger
-    
-    read -r logg
