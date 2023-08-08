@@ -1,4 +1,4 @@
-
+#!/bin/bash
 function centosESM() {
 
     #This script is to speedup logger prerequisites installation
@@ -56,4 +56,13 @@ function centosESM() {
     esac
 
 }
+
+#=============================
+#---------Main Program--------
+#=============================
+#este llama a todos
+
+echo -ne "Please indicate your ssh user, example jsmith"
+read -r userSSH
+centosESM
 
