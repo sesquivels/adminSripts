@@ -3,14 +3,12 @@
 #-----------Variables---------
 #=============================
 
-USER=$1
-
 function centosLogger() {
 
     #This script is to speedup logger prerequisites installation
     #works with Centos/RHEL 7.x and 8.x
 
-    echo -ne "Which is your OS version 7.x or 8.x?"
+    echo -ne "Which is your OS version 7.x or 8.x?  expected options are 7 or 8  "
     read -r sub
 
     case $sub in
@@ -19,7 +17,7 @@ function centosLogger() {
         ;;
     8)
         export {http,https,ftp}_proxy="http://web-proxy.houston.softwaregrp.net:8080"
-        subscription-manager register
+        subscription-manager register --user serguei.esquivel@microfocus.com --password mLBPS&SmidYHHT7ao?9EQp
         subscription-manager attach --auto
 
         dnf install -y unzip fontconfig dejavu-sans-fonts libnsl compat-openssl10 ncurses-compat-libs rng-tools
@@ -64,7 +62,7 @@ function centosLogger() {
     mkdir loggerInstall
     cd loggerInstall
 
-    echo -ne "Wich version of logger?
+    echo -ne "Wich version of logger, option 1 or 2?:  
     #1) Logger 7.2
     #2) Logger 7.3"
 
@@ -86,7 +84,6 @@ function centosLogger() {
         exit 1
         ;;
     esac
-
 }
 
 #=============================
@@ -94,6 +91,9 @@ function centosLogger() {
 #=============================
 #este llama a todos
 
-echo -ne "Please indicate your ssh user, example jsmith"
+echo -ne "Please indicate your ssh user, example jsmith:  "
 read -r userSSH
+
 centosLogger
+
+export {http,https,ftp}_proxy=" "
