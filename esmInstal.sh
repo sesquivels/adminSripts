@@ -4,7 +4,7 @@ OS=$(cat /etc/*release | grep ID |head -n 1| awk -F '=' ' {print $2}' |sed 's/"/
 
 function state() {
     echo -ne "
-On which sstate of installation are you?
+On which state of installation are you?
 1) Initial pre reboot stage
 2) Post reboot Installation
 3) First run
@@ -48,7 +48,7 @@ function preInstall() {
     read -r sub
 
     hostnamectl set-hostname $hostNName
-    
+
     case $sub in
     7)
         if [ "$OS" == "centos" ]; then
@@ -114,21 +114,18 @@ function preInstall() {
 
 function postReboot() {
 
-    cd  ~/esmInstall
-    chown arcsight:arcsight ArcSightESMSuite.bin
-    chown arcsight:arcsight esmInstall.sh
-    cp ~/esmInstall.sh
-    mv ArcSightESMSuite.bin /home/arcsight/
-    su arcsight
-    cd ~
+    #being root we will copy binary and script
+
+    chown arcsight:arcsight /root/esmInstall/ArcSightESMSuite.bin
+    chown arcsight:arcsight /root/installESM.sh
+    cp /root/installESM.sh /home/arcsight
+    cp /root/esmInstall/ArcSightESMSuite.bin /home/arcsight/
+    cd /home/arcsight
     chmod +x ArcSightESMSuite.bin
-    ./ArcSightESMSuite.bin -i console
+    su -c "./ArcSightESMSuite.bin -i console" arcsight
 
 }
 
-function firstRun() {
-
-}
 
 #=============================
 #---------Main Program--------
@@ -137,4 +134,3 @@ function firstRun() {
 
 
 state
-
