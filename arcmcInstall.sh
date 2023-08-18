@@ -78,7 +78,7 @@ function centosArcmc() {
     2)
         scp $userSSH@10.183.3.95:/opt/installers/arcmc/ArcSight-ArcMC-3.2.0.2321.0.bin .
         chmod +x ArcSight-ArcMC-3.2.0.2321.0.bin
-        ./ArcSight-ArcMC-3.2.0.2321.0.bin -i copnsole
+        ./ArcSight-ArcMC-3.2.0.2321.0.bin -i console
         ;;
      *)
         echo "Wrong option."
