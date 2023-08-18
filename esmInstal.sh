@@ -47,6 +47,8 @@ function preInstall() {
     echo -ne "Which is your OS version 7.x or 8.x?"
     read -r sub
 
+    export {http,https,ftp}_proxy="http://web-proxy.houston.softwaregrp.net:8080"
+
     hostnamectl set-hostname $hostNName
 
     case $sub in
