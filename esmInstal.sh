@@ -97,9 +97,10 @@ function preInstall() {
     read -r logg
     case $logg in
     1)
-        scp $userSSH@10.183.3.95:/opt/installers/logger/ArcSight-logger-7.2.0.8372.0.bin .
-        chmod +x ArcSight-logger-7.2.0.8372.0.bin
-        ./ArcSight-logger-7.2.0.8372.0.bin -i console
+        scp $userSSH@10.183.3.95:/opt/installers/esm/ArcSightESMSuite-7.5.0.2516.0.tar .
+        tar xvf ArcSightESMSuite-7.5.0.2516.0.tar
+        cd Tools
+        ./prepare_system.sh
         ;;
     2)
         scp $userSSH@10.183.3.95:/opt/installers/esm/ArcSightESMSuite-7.6.0.2523.0.tar .
