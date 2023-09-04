@@ -39,20 +39,9 @@ function centosArcmc() {
     useradd –m –g arcsight –u 1500 arcsight
 
     #adding limits
-    echo "* soft nproc 10240" | tee -a /etc/security/limits.d/20-nproc.conf
-    echo "* hard nproc 10240" | tee -a /etc/security/limits.d/20-nproc.conf
-    echo "* soft nofile 65536" | tee -a /etc/security/limits.d/20-nproc.conf
-    echo "* hard nofile 65536" | tee -a /etc/security/limits.d/20-nproc.conf
 
-    sed -i 's/#RemoveIPC=no/RemoveIPC=no/' /etc/systemd/logind.conf
-    systemctl restart systemd-logind.service
-
-    echo "net.ipv4.tcp_fin_timeout = 30" | tee -a /etc/sysctl.conf
-    echo "net.ipv4.tcp_keepalive_time = 60" | tee -a /etc/sysctl.conf
-    echo "net.ipv4.tcp_keepalive_intvl = 2" | tee -a /etc/sysctl.conf
-    echo "net.ipv4.tcp_keepalive_probes = 2" | tee -a /etc/sysctl.conf
-
-    sysctl -p
+    echo "* hard nofile 10240" | tee -a /etc/security/limits.conf
+    echo "* soft nofile 10240" | tee -a /etc/security/limits.conf
 
     systemctl stop firewalld
     systemctl disable firewalld
