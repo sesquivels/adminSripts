@@ -56,7 +56,7 @@ function preInstall() {
         if [ "$OS" == "centos" ]; then
             yum install -y unzip fontconfig dejavu-sans-fonts
         else
-            subscription-manager register --user serguei.esquivel@microfocus.com --password P8lMz7eKrKf74aS1HAhGXWXU9h30
+            subscription-manager register --user serguei.esquivel@microfocus.com --password nGFH58MP8sngaidikTbi98BCa5mbp4
             subscription-manager attach --auto
             yum update -n
             yum install -y unzip fontconfig dejavu-sans-fonts
