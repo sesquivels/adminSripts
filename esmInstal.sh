@@ -121,12 +121,20 @@ function postReboot() {
 
     chown arcsight:arcsight /root/esmInstall/ArcSightESMSuite.bin
     chown arcsight:arcsight /root/installESM.sh
+    chown -R arcsight:arcsight /root/Tools
+    chown -R arcsight:arcsight /root/ESMComponents
+    cp -r /root/Tools /home/arcsight
+    cp -r /root/ESMComponents /home/arcsight
     cp /root/installESM.sh /home/arcsight
     cp /root/esmInstall/ArcSightESMSuite.bin /home/arcsight/
     cd /home/arcsight
     chmod +x ArcSightESMSuite.bin
     su -c "./ArcSightESMSuite.bin -i console" arcsight
 
+}
+
+function firstRun() {
+    /opt/arcsight/manager/bin/arcsight firstbootsetup -boxster -soft -i console
 }
 
 
