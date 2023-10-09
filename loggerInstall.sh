@@ -5,29 +5,47 @@
 
 function centosLogger() {
 
-    #This script is to speedup logger prerequisites installation
-    #works with Centos/RHEL 7.x and 8.x
+    echo -ne "Please indicate your ssh user, example jsmith:  "
+    read -r userSSH
 
-    echo -ne "Which is your OS version 7.x or 8.x?  expected options are 7 or 8  "
+    echo -ne "Which will be the name of your host? please provide a name:  "
+    read -r hostNName
+
+    echo -ne "Which is your OS version 7.x or 8.x?"
     read -r sub
 
-    case $sub in
+    export {http,https,ftp}_proxy="http://web-proxy.houston.softwaregrp.net:8080"
+
+    hostnamectl set-hostname $hostNName
+
+   case $sub in
     7)
-        yum install -y unzip fontconfig dejavu-sans-fonts
+        if [ "$OS" == "centos" ]; then
+            yum install -y unzip fontconfig dejavu-sans-fonts
+        else
+            subscription-manager register --user serguei.esquivel@microfocus.com --password nGFH58MP8sngaidikTbi98BCa5mbp4
+            subscription-manager attach --auto
+            yum update -y
+            yum install -y unzip fontconfig dejavu-sans-fonts
+        fi
         ;;
     8)
-        export {http,https,ftp}_proxy="http://web-proxy.houston.softwaregrp.net:8080"
-        subscription-manager register --user serguei.esquivel@microfocus.com --password P8lMz7eKrKf74aS1HAhGXWXU9h30
-        subscription-manager attach --auto
+        if [ "$OS" == "centos" ]; then
+            dnf install -y zip unzip libaio rng-tools ncurses-compat-libs libnsl
+            systemctl start rngd.service
+            systemctl enable rngd.service
+        else
+            
+            subscription-manager register --user serguei.esquivel@microfocus.com --password P8lMz7eKrKf74aS1HAhGXWXU9h30
+            subscription-manager attach --auto
+            dnf update -y
 
-        dnf install -y unzip fontconfig dejavu-sans-fonts libnsl compat-openssl10 ncurses-compat-libs rng-tools
-        systemctl start rngd.service
-        systemctl enable rngd.service
+            dnf install -y zip unzip libaio rng-tools ncurses-compat-libs libnsl
+            systemctl start rngd.service
+            systemctl enable rngd.service
+        fi
         ;;
     *)
-        echo "Wrong option."
-        exit 1
-        ;;
     esac
 
     hostnamectl set-hostname $hostNName
