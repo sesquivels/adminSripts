@@ -120,12 +120,12 @@ function postReboot() {
     #being root we will copy binary and script
 
     chown arcsight:arcsight /root/esmInstall/ArcSightESMSuite.bin
-    chown arcsight:arcsight /root/installESM.sh
+    chown arcsight:arcsight /root/esmInstall.sh
     chown -R arcsight:arcsight /root/Tools
     chown -R arcsight:arcsight /root/ESMComponents
     cp -r /root/Tools /home/arcsight
     cp -r /root/ESMComponents /home/arcsight
-    cp /root/installESM.sh /home/arcsight
+    cp /root/esmInstall.sh /home/arcsight
     cp /root/esmInstall/ArcSightESMSuite.bin /home/arcsight/
     cd /home/arcsight
     chmod +x ArcSightESMSuite.bin
