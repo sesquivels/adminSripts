@@ -11,7 +11,8 @@ Develop by Serguei Esquivel S.
 Jan 2024
 '
 
-input=$1
+# this is the variable that contains raw events
+rawEvents=$1
 lineCouner=0
 
 function banner() {
@@ -34,7 +35,7 @@ function banner() {
    exit 0
 }
 function main() {
-   if [ -z $input ]; then
+   if [ -z $rawEvents ]; then
       banner
       exit 1
    else 
@@ -46,14 +47,14 @@ function sending_events (){
    read -p "Please enter protocol (udp/tcp): " PROTO
    read -p "Please enter IP address: " IP
    read -p "Please enter port: " PORT
-   #input="sample.txt"
+   
    while IFS= read -r line
       do
          ((lineCounter++))
-         # the next line is for send syslog
+         # the next line is for sending syslog for requested values.
          echo "$line" > /dev/$PROTO/$IP/$PORT
-      done < "$input"
-      echo "This script just sent ${lineCounter} events."
+      done < "$rawEvents"
+      echo "This script just sent ${lineCounter} events. To destinatio ${$IP}"
    exit 0
 }
 #calling main function
