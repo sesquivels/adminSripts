@@ -1,2 +1,2 @@
 # adminSripts
-just for admin purposes
+This Section is for Arcsight daily basis tasks and scripts, nothing with PI related.
