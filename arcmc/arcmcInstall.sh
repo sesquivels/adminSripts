@@ -51,8 +51,6 @@ function centosArcmc() {
     groupmod -g 750 arcsight
     useradd -m -g arcsight arcsight
     usermod -u 1500 arcsight
-    groupadd –g 750 arcsight
-    useradd –m –g arcsight –u 1500 arcsight
 
     #adding limits
 
