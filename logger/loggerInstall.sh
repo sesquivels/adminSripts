@@ -55,8 +55,7 @@ function centosLogger() {
     groupmod -g 750 arcsight
     useradd -m -g arcsight arcsight
     usermod -u 1500 arcsight
-    groupadd –g 750 arcsight
-    useradd –m –g arcsight –u 1500 arcsight
+  
 
     #adding limits
     echo "* soft nproc 10240" | tee -a /etc/security/limits.d/20-nproc.conf
