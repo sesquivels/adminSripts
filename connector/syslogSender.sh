@@ -54,7 +54,7 @@ function sending_events (){
          # the next line is for sending syslog for requested values.
          echo "$line" > /dev/$PROTO/$IP/$PORT
       done < "$rawEvents"
-      echo "This script just sent ${lineCounter} events. To destinatio ${$IP}"
+      echo "This script just sent ${lineCounter} events. To destinatio ${IP}"
    exit 0
 }
 #calling main function
